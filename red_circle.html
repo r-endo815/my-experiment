@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jsPsych Red Circle</title>
+  <!-- Load jsPsych 7.3.4 via CDN -->
+  <script src="https://unpkg.com/jspsych@7.3.4"></script>
+  <!-- Load html-keyboard-response plugin -->
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+  <!-- Load default CSS -->
+  <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+  <style>
+    /* Set the background color to gray */
+    body, .jspsych-display-element {
+      background-color: #808080;
+      color: white; /* Make text white for better contrast on gray background */
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CSS to create a 100px diameter red circle */
+    .red-circle {
+      width: 100px;
+      height: 100px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body></body>
+<script>
+  /**
+   * Experiment configuration using jsPsych v7
+   */
+  const jsPsych = initJsPsych({
+    on_finish: function() {
+      // jsPsych.data.displayData();
+    }
+  });
+
+  const timeline = [];
+
+  // 1. Initial instructions
+  const welcome = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <div style="font-size: 24px;">
+        <p>画面中央に赤い円が表示されます。</p>
+        <p><strong>スペースキー</strong>を押すと終了します。</p>
+        <p>何かキーを押すと開始します。</p>
+      </div>
+    `
+  };
+  timeline.push(welcome);
+
+  // 2. Red circle trial
+  const circle_trial = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div class="red-circle"></div>',
+    choices: [' '], // Restrict responses to the spacebar
+    prompt: '<p style="margin-top: 20px;">スペースキーを押してください</p>'
+  };
+  timeline.push(circle_trial);
+
+  // 3. Goodbye message
+  const goodbye = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<p style="font-size: 24px;">終了しました。ありがとうございました。</p>',
+    choices: "NO_KEYS",
+    trial_duration: 3000
+  };
+  timeline.push(goodbye);
+
+  // Start the experiment
+  window.onload = function() {
+    jsPsych.run(timeline);
+  };
+</script>
+</html>
