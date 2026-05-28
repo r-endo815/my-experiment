@@ -7,7 +7,7 @@
     <!-- jsPsych 7.3 CDN -->
     <script src="https://unpkg.com/jspsych@7.3.4"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
-    <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.3"></script>
     <link rel="stylesheet" href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css">
     
     <style>
@@ -40,42 +40,158 @@
             align-items: center;
             height: 100vh;
         }
+
+        /* 送信ステータス画面のスタイル */
+        .status-container {
+            font-size: 20px;
+            text-align: center;
+            line-height: 1.8;
+            padding: 20px;
+        }
+        .status-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div id="jspsych-target"></div>
 
     <script>
+        // 送信先GASのWebアプリURL
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbyFiSTsWDJpe_84DZINPwqI92sbthqTqO1H_5p0qFZWuEZLmRyJRLR5MoNFNyuL_NCszw/exec";
+
+        // 指数バックオフを用いたデータ送信関数
+        function sendDataWithExponentialBackoff(csvData, retries = 5, delay = 1000) {
+            const displayEl = jsPsych.getDisplayElement();
+            
+            // ステータス表示の更新ヘルパー
+            const updateStatus = (htmlContent) => {
+                displayEl.innerHTML = `<div class="status-container">${htmlContent}</div>`;
+            };
+
+            updateStatus(`
+                <p>データを送信しています。しばらくお待ちください...</p>
+                <div class="status-spinner"></div>
+            `);
+
+            const attemptSend = (currentRetry) => {
+                fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain', // CORS制約を回避するためプレーンテキストで送信
+                    },
+                    body: csvData,
+                    mode: 'no-cors' // 外部ドメインへの不透明なリクエストとして送信
+                })
+                .then(() => {
+                    // no-cors の場合、レスポンスの詳細は取得できませんが、エラーにならなければ送信成功とみなします
+                    updateStatus(`
+                        <p style="color: green; font-weight: bold; font-size: 24px;">データの送信が完了しました！</p>
+                        <p>ご協力ありがとうございました。ブラウザを閉じて終了してください。</p>
+                    `);
+                })
+                .catch((error) => {
+                    if (currentRetry > 0) {
+                        const nextDelay = delay * 2;
+                        updateStatus(`
+                            <p style="color: orange;">送信中に問題が発生しました。再試行しています... (残り回数: ${currentRetry}回)</p>
+                            <div class="status-spinner"></div>
+                        `);
+                        setTimeout(() => {
+                            attemptSend(currentRetry - 1, nextDelay);
+                        }, delay);
+                    } else {
+                        updateStatus(`
+                            <p style="color: red; font-weight: bold; font-size: 24px;">データの自動保存に失敗しました。</p>
+                            <p>ネットワーク接続を確認の上、以下のデータをコピーして実験実施者へ提出してください。</p>
+                            <textarea readonly style="width: 80%; height: 200px; margin-top: 15px; font-family: monospace;">${csvData}</textarea>
+                        `);
+                    }
+                });
+            };
+
+            attemptSend(retries);
+        }
+
         // jsPsychの初期化
         const jsPsych = initJsPsych({
             display_element: 'jspsych-target',
             on_finish: function() {
-                // 実験終了時にCSV形式でデータを表示
-                jsPsych.data.displayData('csv');
+                // 不要な行（注視点、教示、ID入力など）を除外し、指定された分析用列のみを抽出
+                const responseTrials = jsPsych.data.get().filter({ task: 'response' });
+                
+                // 抽出対象のキー列ヘッダー
+                const headers = ['subject_id', 'timestamp', 'word', 'color', 'condition', 'rt', 'correct'];
+                
+                // CSV文字列の構築
+                let csvContent = headers.join(',') + '\n';
+                
+                responseTrials.values().forEach(trial => {
+                    const row = [
+                        // ダブルクォーテーションで囲んでカンマエスケープ
+                        `"${trial.subject_id}"`,
+                        `"${trial.timestamp}"`,
+                        `"${trial.stimulus_text}"`,
+                        `"${trial.stimulus_color}"`,
+                        `"${trial.condition}"`,
+                        trial.rt,
+                        // 空欄（ブランク）にならないよう確実に文字列 "true" / "false" を設定
+                        trial.correct ? "true" : "false"
+                    ];
+                    csvContent += row.join(',') + '\n';
+                });
+
+                // 安全なDOM操作を保証したうえで自動送信を開始
+                sendDataWithExponentialBackoff(csvContent);
             }
         });
 
-        // 要因計画: 文字と色の組み合わせ
-        // color: CSSの色指定, correct_key: 正解キー
-        const stroop_stimuli = [
-            // 一致条件 (Congruent)
-            { text: "赤", color: "red", condition: "congruent", correct_key: "r" },
-            { text: "青", color: "blue", condition: "congruent", correct_key: "b" },
-            { text: "緑", color: "green", condition: "congruent", correct_key: "g" },
-            // 不一致条件 (Incongruent)
-            { text: "赤", color: "blue", condition: "incongruent", correct_key: "b" },
-            { text: "赤", color: "green", condition: "incongruent", correct_key: "g" },
-            { text: "青", color: "red", condition: "incongruent", correct_key: "r" },
-            { text: "青", color: "green", condition: "incongruent", correct_key: "g" },
-            { text: "緑", color: "red", condition: "incongruent", correct_key: "r" },
-            { text: "緑", color: "blue", condition: "incongruent", correct_key: "b" }
-        ];
-
         const timeline = [];
 
-        // (1) 全画面化ボタン (一部の環境で Permissions Policy エラーが発生するため削除しました)
+        // 1. 参加者情報入力 (survey-text プラグイン)
+        const participant_info_trial = {
+            type: jsPsychSurveyText,
+            questions: [
+                {
+                    prompt: '<div style="font-size: 20px; line-height: 1.5; text-align: center; margin-bottom: 10px;">参加者ID（例：学籍番号）を入力してください。</div>', 
+                    placeholder: 'IDを入力してください',
+                    required: true,
+                    name: 'participant_id'
+                }
+            ],
+            button_label: '次へ進む',
+            on_finish: function(data) {
+                // 入力されたIDを取得
+                const id = data.response.participant_id;
+                // 現在の日時を取得 (YYYY-MM-DD HH:MM:SS 形式に整形)
+                const now = new Date();
+                const formattedTimestamp = now.getFullYear() + '-' +
+                    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(now.getDate()).padStart(2, '0') + ' ' +
+                    String(now.getHours()).padStart(2, '0') + ':' +
+                    String(now.getMinutes()).padStart(2, '0') + ':' +
+                    String(now.getSeconds()).padStart(2, '0');
 
-        // (2) 教示画面
+                // 以降のすべての試行データに自動的にプロパティを付与
+                jsPsych.data.addProperties({
+                    subject_id: id,
+                    timestamp: formattedTimestamp
+                });
+            }
+        };
+        timeline.push(participant_info_trial);
+
+        // 2. 教示画面
         const instructions = {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: `
@@ -92,6 +208,21 @@
         };
         timeline.push(instructions);
 
+        // 要因計画: 文字と色の組み合わせ
+        const stroop_stimuli = [
+            // 一致条件 (Congruent)
+            { text: "赤", color: "red", condition: "congruent", correct_key: "r" },
+            { text: "青", color: "blue", condition: "congruent", correct_key: "b" },
+            { text: "緑", color: "green", condition: "congruent", correct_key: "g" },
+            // 不一致条件 (Incongruent)
+            { text: "赤", color: "blue", condition: "incongruent", correct_key: "b" },
+            { text: "赤", color: "green", condition: "incongruent", correct_key: "g" },
+            { text: "青", color: "red", condition: "incongruent", correct_key: "r" },
+            { text: "青", color: "green", condition: "incongruent", correct_key: "g" },
+            { text: "緑", color: "red", condition: "incongruent", correct_key: "r" },
+            { text: "緑", color: "blue", condition: "incongruent", correct_key: "b" }
+        ];
+
         // a. 注視点 (+)
         const fixation = {
             type: jsPsychHtmlKeyboardResponse,
@@ -105,7 +236,6 @@
         const stimulus_trial = {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: function() {
-                // タイムライン変数から動的にHTMLを生成
                 const text = jsPsych.timelineVariable('text');
                 const color = jsPsych.timelineVariable('color');
                 return `<div class="stimulus-text" style="color: ${color};">${text}</div>`;
@@ -119,14 +249,12 @@
                 stimulus_color: jsPsych.timelineVariable('color')
             },
             on_finish: function(data) {
-                // 正誤判定
+                // 正誤判定 (厳密にBooleanを割り当て)
                 data.correct = (data.response === data.correct_response);
             }
         };
 
-        // c. 試行間隔 (ITI) は post_trial_gap で実装
-
-        // メイン試行ループ (10回繰り返す)
+        // メイン試行ループ (当初の仕様のまま10回繰り返す、ITI: 1000ms)
         const test_procedure = {
             timeline: [fixation, stimulus_trial],
             timeline_variables: stroop_stimuli,
@@ -138,6 +266,7 @@
         };
         timeline.push(test_procedure);
 
+        // 実験の実行
         jsPsych.run(timeline);
     </script>
 </body>
