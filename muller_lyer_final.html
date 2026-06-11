@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ミュラー・リヤー錯視 調整法実験</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- jsPsych 7.3 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jspsych@7.3.0/css/jspsych.css">
+  <!-- Tailwind CSS (for modern UI layout) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jsPsych 7.3 Core and Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/jspsych@7.3.0/dist/index.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-canvas-slider-response@1.1.2/dist/index.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-html-keyboard-response@1.1.2/dist/index.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jspsych/plugin-html-button-response@1.1.2/dist/index.browser.min.js"></script>
+  
+  <style>
+    /* 画面全体を上下左右中央に配置するスタイルとフォントの統一 */
+    body {
+      background-color: #f3f4f6; /* Slate 100 */
+      color: #1f2937; /* Gray 800 */
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .jspsych-content-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      width: 100%;
+      padding: 1rem;
+    }
+    .jspsych-content {
+      max-width: 680px;
+      width: 100%;
+      background: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 8px 15px -6px rgba(0, 0, 0, 0.08);
+    }
+    /* スライダーコンテナの調整 */
+    .jspsych-sliders-response-container {
+      margin-top: 28px;
+    }
+    /* スマホのスライダー表示の拡大 */
+    .jspsych-sliders-response-container .jspsych-slider-labels span {
+      font-size: 1.25rem !important; /* 「みじかく」「ながく」のフォントサイズを大きく */
+      font-weight: bold;
+      color: #4b5563;
+    }
+    /* スマホでも操作しやすいスライダーのスタイル */
+    input[type=range] {
+      width: 100%;
+      max-width: 420px;
+      height: 12px;
+      border-radius: 9999px;
+      outline: none;
+      background: #e5e7eb;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    /* スライダーのつまみを大きくしてスマホでのドラッグを容易に */
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 32px; /* より大きく押しやすく */
+      height: 32px;
+      border-radius: 50%;
+      background: #2563eb;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.25);
+      transition: background-color 0.1s;
+    }
+    input[type=range]::-webkit-slider-thumb:active {
+      background: #1d4ed8;
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #2563eb;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.25);
+      transition: background-color 0.1s;
+    }
+    input[type=range]::-moz-range-thumb:active {
+      background: #1d4ed8;
+    }
+    /* ボタンのスタイル統一（大きめ・角丸） */
+    .jspsych-btn {
+      background-color: #2563eb !important; /* Blue 600 */
+      color: white !important;
+      font-size: 1.25rem !important; /* ボタン文字サイズをさらに大きく */
+      font-weight: 700 !important;
+      padding: 0.9rem 3.5rem !important; /* 余白を拡大してタップしやすく */
+      border-radius: 9999px !important; /* 丸みのあるボタン */
+      border: none !important;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25) !important;
+      transition: all 0.2s !important;
+    }
+    .jspsych-btn:hover {
+      background-color: #1d4ed8 !important; /* Blue 700 */
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.35) !important;
+    }
+    .jspsych-btn:active {
+      transform: translateY(1px);
+    }
+    /* 無効化されたボタンのスタイル */
+    .jspsych-btn:disabled {
+      background-color: #d1d5db !important; /* Gray 300 */
+      color: #9ca3af !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="jspsych-target"></div>
+
+  <script>
+    // 送信用GASエンドポイントURL (ご自身のGASウェブアプリURL)
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxSIbbjVgTza09W8omGwrvAq_BCthVQ77_1lSLJih3p9zrXJo3vhOPzxl0sd__DLaZAlA/exec';
+
+    // jsPsychの初期化
+    const jsPsych = initJsPsych({
+      display_element: 'jspsych-target',
+      on_finish: function() {
+        // 実験終了後に結果データを集計
+        const rawTrials = jsPsych.data.get().filter({task: 'response'}).values();
+        const participantId = jsPsych.data.get().select('participant_id').values[0] || 'Unknown';
+        const deviceType = jsPsych.data.get().select('device_type').values[0] || '未回答';
+        const nowStr = new Date().toLocaleString('ja-JP');
+
+        // 指定のデータ構造にマッピング（スプレッドシートの列と完全同期できるように調整）
+        const formattedData = rawTrials.map((trial, idx) => {
+          const pseVal = parseInt(trial.response);
+          const errorVal = pseVal - 200; // 標準刺激200px固定からのズレ
+          return {
+            subject_id: participantId,         // 参加者ID
+            device_type: deviceType,           // 使用機材
+            timestamp: nowStr,                 // 日時
+            trial_num: idx + 1,                // 試行番号
+            angle: trial.angle,                // 角度 (度)
+            wing_length: trial.wing_length,    // 羽の長さ (px)
+            std_stimulus: 200,                 // 標準刺激 (px)
+            pse: pseVal,                       // 調整後(PSE) (px)
+            error_amount: errorVal             // 誤差 (px)
+          };
+        });
+
+        // 描画ターゲット要素を取得
+        const contentEl = document.querySelector('.jspsych-content');
+
+        // 送信処理関数 (リトライ指数バックオフ付き)
+        function sendToGAS(retriesLeft = 3, delay = 1000) {
+          contentEl.innerHTML = `
+            <div class="text-center py-10">
+              <div class="inline-block animate-spin rounded-full h-14 w-14 border-b-2 border-blue-600 mb-6"></div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-3">データを保存中</h2>
+              <p class="text-gray-500 text-base">実験結果データをスプレッドシートに送信して整理しています...</p>
+            </div>
+          `;
+
+          // GAS Web App へのデータのPOST送信 (CORS制限を安全に回避するために text/plain でJSON文字列を送る手法がGAS連携の鉄板です)
+          fetch(GAS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain'
+            },
+            body: JSON.stringify(formattedData)
+          })
+          .then(() => {
+            // 送信完了画面を描画
+            renderFinalScreen(true);
+          })
+          .catch(error => {
+            if (retriesLeft > 0) {
+              // エラー時の自動リトライ
+              setTimeout(() => {
+                sendToGAS(retriesLeft - 1, delay * 2);
+              }, delay);
+            } else {
+              // 最終的なエラー時の表示
+              renderFinalScreen(false, error.message || 'ネットワーク接続に問題があるか、GASのサーバー設定を確認してください。');
+            }
+          });
+        }
+
+        // 最終画面描画処理
+        function renderFinalScreen(isSuccess, errorMessage = '') {
+          let statusBanner = '';
+          if (isSuccess) {
+            statusBanner = `
+              <div class="bg-green-50 border-l-4 border-green-500 p-5 mb-8 rounded-lg text-left">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-0.5">
+                    <svg class="h-6 w-6 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-base font-semibold text-green-800 leading-normal">
+                      スプレッドシートへの自動反映が完了しました！そのままブラウザを閉じて構いません。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            `;
+          } else {
+            statusBanner = `
+              <div class="bg-red-50 border-l-4 border-red-500 p-5 mb-8 rounded-lg text-left">
+                <div class="flex flex-col">
+                  <div class="flex items-start">
+                    <div class="flex-shrink-0 mt-0.5">
+                      <svg class="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <div class="ml-3">
+                      <p class="text-base font-semibold text-red-800">
+                        データの送信に失敗しました。
+                      </p>
+                      <p class="text-sm text-red-700 mt-1">理由: ${errorMessage}</p>
+                    </div>
+                  </div>
+                  <div class="mt-3 flex space-x-3 ml-9">
+                    <button id="retry-btn" class="text-sm bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full transition shadow-md">
+                      もう一度送信する
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          let resultHtml = `
+            <div class="text-center">
+              <h2 class="text-3xl font-bold mb-3 text-gray-800">実験終了</h2>
+              <p class="text-lg font-bold text-blue-600 mb-8">参加者ID: ${participantId} &nbsp;|&nbsp; 使用機材: ${deviceType}</p>
+              
+              ${statusBanner}
+
+              <p class="mb-6 text-gray-700 text-base">ご協力ありがとうございました。以下があなたの実験データです。</p>
+              <div class="overflow-x-auto rounded-xl border border-gray-200 mb-8">
+                <table class="min-w-full bg-white">
+                  <thead>
+                    <tr class="bg-gray-100 border-b">
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">試行</th>
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">参加者ID</th>
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">角度 (度)</th>
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">羽の長さ (px)</th>
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">標準刺激 (px)</th>
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">調整後(PSE) (px)</th>
+                      <th class="py-3 px-4 text-sm font-bold text-gray-700">誤差 (px)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+          `;
+
+          let count = 1;
+          formattedData.forEach(function(row) {
+            resultHtml += `
+              <tr class="border-b hover:bg-gray-50">
+                <td class="py-2.5 px-4 text-sm text-gray-600">${count++}</td>
+                <td class="py-2.5 px-4 text-sm text-gray-600 font-mono">${row.subject_id}</td>
+                <td class="py-2.5 px-4 text-sm text-gray-600">${row.angle}</td>
+                <td class="py-2.5 px-4 text-sm text-gray-600">${row.wing_length}</td>
+                <td class="py-2.5 px-4 text-sm text-gray-600">${row.std_stimulus}</td>
+                <td class="py-2.5 px-4 text-sm text-gray-600 font-semibold">${row.pse}</td>
+                <td class="py-2.5 px-4 text-sm ${row.error_amount >= 0 ? 'text-red-500' : 'text-blue-500'} font-semibold">
+                  ${row.error_amount > 0 ? '+' : ''}${row.error_amount}
+                </td>
+              </tr>
+            `;
+          });
+
+          resultHtml += `
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-sm text-gray-500 mb-8">※ 調整後の長さ(PSE)が200pxに近いほど、正確に調整できていることを示します。</p>
+              <button onclick="window.location.reload();" class="jspsych-btn">もう一度行う</button>
+            </div>
+          `;
+
+          contentEl.innerHTML = resultHtml;
+
+          // 手動リトライボタン用のハンドラ設定
+          const retryBtn = document.getElementById('retry-btn');
+          if (retryBtn) {
+            retryBtn.addEventListener('click', function() {
+              sendToGAS();
+            });
+          }
+        }
+
+        // 初期ロード完了時の即時データ送信開始
+        sendToGAS();
+      }
+    });
+
+    // 入力・選択値を一時保持するグローバル変数（DOM破棄時のエラー対策）
+    let tempParticipantId = "Unknown";
+    let tempDeviceType = "パソコン"; // デフォルト
+
+    // タイムラインの作成
+    const timeline = [];
+
+    // 0. 参加者ID入力画面
+    const participant_id_screen = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: `
+        <div class="text-center py-2">
+          <h1 class="text-3xl font-extrabold mb-6 text-blue-600">実験開始</h1>
+          <p class="mb-8 text-gray-700 text-lg sm:text-xl font-medium leading-relaxed">
+            実験を始める前に、参加者ID（半角の英数字や出席番号など）を入力してください。
+          </p>
+          <div class="mb-10">
+            <input type="text" id="participant-id" 
+                   class="px-6 py-4 border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/30 w-72 text-center font-mono text-2xl font-bold shadow-sm" 
+                   placeholder="IDを入力" autocomplete="off" required>
+          </div>
+        </div>
+      `,
+      choices: ['すすむ'],
+      button_html: '<div class="flex justify-center"><button class="jspsych-btn" id="submit-id-btn">%choice%</button></div>',
+      on_load: function() {
+        const btn = document.getElementById('submit-id-btn');
+        const input = document.getElementById('participant-id');
+        
+        // 初期状態はボタンを無効化
+        btn.disabled = true;
+        
+        // 入力欄に文字が入っているか監視
+        input.addEventListener('input', function() {
+          const val = input.value.trim();
+          if (val !== '') {
+            btn.disabled = false;
+            tempParticipantId = val; // 入力値を一時退避
+          } else {
+            btn.disabled = true;
+          }
+        });
+        
+        // 入力欄にフォーカスを当てる
+        input.focus();
+      },
+      on_finish: function() {
+        // IDを全体のプロパティに追加
+        jsPsych.data.addProperties({ participant_id: tempParticipantId });
+      }
+    };
+    timeline.push(participant_id_screen);
+
+    // 0.5 使用機材選択画面（文字をスマホサイズに適正化）
+    const device_select_screen = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: `
+        <div class="text-center py-4">
+          <h2 class="text-xl sm:text-2xl font-extrabold mb-10 text-gray-900 leading-snug px-2">
+            現在、実験に使用している機材を<br class="sm:hidden">選択してください<span class="text-red-500 ml-1 font-bold">*</span>
+          </h2>
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-10 mb-12 text-lg sm:text-xl">
+            <label class="inline-flex items-center cursor-pointer select-none bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-2xl py-3.5 px-6 w-full sm:w-auto justify-center transition shadow-sm">
+              <input type="radio" name="device" value="パソコン" 
+                     class="w-6 h-6 text-blue-600 border-gray-300 focus:ring-blue-500 accent-blue-600" checked>
+              <span class="ml-3 font-semibold text-gray-800">パソコン</span>
+            </label>
+            <label class="inline-flex items-center cursor-pointer select-none bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-2xl py-3.5 px-6 w-full sm:w-auto justify-center transition shadow-sm">
+              <input type="radio" name="device" value="スマホ" 
+                     class="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500 accent-blue-600">
+              <span class="ml-3 font-semibold text-gray-800">スマホ</span>
+            </label>
+            <label class="inline-flex items-center cursor-pointer select-none bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-2xl py-3.5 px-6 w-full sm:w-auto justify-center transition shadow-sm">
+              <input type="radio" name="device" value="タブレット" 
+                     class="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500 accent-blue-600">
+              <span class="ml-3 font-semibold text-gray-800">タブレット</span>
+            </label>
+          </div>
+        </div>
+      `,
+      choices: ['すすむ'],
+      button_html: '<div class="flex justify-center"><button class="jspsych-btn" id="submit-device-btn">%choice%</button></div>',
+      on_load: function() {
+        const radios = document.querySelectorAll('input[name="device"]');
+        
+        // ラジオボタンの変更イベントを監視し、現在の選択値を退避
+        radios.forEach(radio => {
+          radio.addEventListener('change', function() {
+            if (this.checked) {
+              tempDeviceType = this.value;
+            }
+          });
+        });
+      },
+      on_finish: function() {
+        // 使用機材の選択情報を全体のプロパティに追加
+        jsPsych.data.addProperties({ device_type: tempDeviceType });
+      }
+    };
+    timeline.push(device_select_screen);
+
+    // 1. 教示画面（ボタンで進行・やさしい表現で文字サイズアップ）
+    const instruction = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: `
+        <div class="text-left leading-relaxed text-gray-700">
+          <h1 class="text-3xl font-extrabold mb-8 text-center text-blue-600">目の錯覚のテスト</h1>
+          <p class="mb-5 text-lg sm:text-xl">ご協力ありがとうございます。これから短い視覚のテストを行います。</p>
+          
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-2xl mb-6 text-lg sm:text-xl">
+            <p class="font-bold text-blue-800 mb-2">やり方</p>
+            <p class="mb-2">
+              画面に２つの<b>「矢印のような図形」</b>が上下に並んで表示されます。
+            </p>
+            <p>
+              下の図形は、スライダーを動かすと長さが変わります。
+            </p>
+          </div>
+
+          <p class="font-bold text-red-600 mb-2 text-xl">あなたへのお願い：</p>
+          <div class="mb-10 pl-4 border-l-4 border-red-500 text-lg sm:text-xl">
+            スライダーを左右に動かして、<b>「上の横線」と「下の横線」がピッタリ同じ長さ</b>に見えるところで、画面の下にある<b>【決定】</b>ボタンを押してください。
+          </div>
+        </div>
+      `,
+      choices: ['テストをはじめる'],
+      button_html: '<div class="flex justify-center"><button class="jspsych-btn">%choice%</button></div>'
+    };
+    timeline.push(instruction);
+
+    // 要因計画の定義
+    // 独立変数: 角度(15度, 75度) × 羽の長さ(20px, 50px)
+    const angles = [15, 75];
+    const featherLengths = [20, 50];
+    const repetitions = 3; // 各条件を3回ずつ
+
+    // 試行リストの作成
+    let trials_design = [];
+    for (let a of angles) {
+      for (let f of featherLengths) {
+        for (let r = 0; r < repetitions; r++) {
+          trials_design.push({
+            angle: a,
+            feather_length: f
+          });
+        }
+      }
+    }
+
+    // 試行リストをランダムシャッフル
+    trials_design = jsPsych.randomization.shuffle(trials_design);
+
+    // 各試行における描画処理
+    // 引数として現在のスライダーの値（刺激の長さ）を受け取り、canvasに再描画する
+    function drawMullerLyer(canvas, sliderValue, angle, featherLength) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const centerX = canvas.width / 2;
+      
+      // 共通の設定
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#1f2937'; // ダークグレー
+
+      // ラジアン変換
+      const rad = angle * Math.PI / 180;
+      const cosVal = Math.cos(rad);
+      const sinVal = Math.sin(rad);
+
+      // ==========================================
+      // 1. 上半分：標準刺激 (内向き羽・200px固定)
+      //    形状： >──────────< (折り返し)
+      // ==========================================
+      const topY = 100;
+      const stdLength = 200;
+      const stdStartX = centerX - (stdLength / 2);
+      const stdEndX = centerX + (stdLength / 2);
+
+      // 主線
+      ctx.beginPath();
+      ctx.moveTo(stdStartX, topY);
+      ctx.lineTo(stdEndX, topY);
+      ctx.stroke();
+
+      // 内向きの羽 (先端から内側に向けて伸ばす)
+      // 左端 (stdStartX)：右(内側)に向けて羽を伸ばす
+      ctx.beginPath();
+      ctx.moveTo(stdStartX, topY);
+      ctx.lineTo(stdStartX + featherLength * cosVal, topY - featherLength * sinVal);
+      ctx.moveTo(stdStartX, topY);
+      ctx.lineTo(stdStartX + featherLength * cosVal, topY + featherLength * sinVal);
+      
+      // 右端 (stdEndX)：左(内側)に向けて羽を伸ばす
+      ctx.moveTo(stdEndX, topY);
+      ctx.lineTo(stdEndX - featherLength * cosVal, topY - featherLength * sinVal);
+      ctx.moveTo(stdEndX, topY);
+      ctx.lineTo(stdEndX - featherLength * cosVal, topY + featherLength * sinVal);
+      ctx.stroke();
+
+      // ==========================================
+      // 2. 下半分：比較刺激 (外向き羽・可変[sliderValue])
+      //    形状： <──────────> (広がり)
+      // ==========================================
+      const bottomY = 250;
+      const compLength = sliderValue; // スライダーの値（リアルタイム）
+      const compStartX = centerX - (compLength / 2);
+      const compEndX = centerX + (compLength / 2);
+
+      // 主線
+      ctx.beginPath();
+      ctx.moveTo(compStartX, bottomY);
+      ctx.lineTo(compEndX, bottomY);
+      ctx.stroke();
+
+      // 外向きの羽 (先端から外側に向けて伸ばす)
+      // 左端 (compStartX)：左(外側)に向けて羽を伸ばす
+      ctx.beginPath();
+      ctx.moveTo(compStartX, bottomY);
+      ctx.lineTo(compStartX - featherLength * cosVal, bottomY - featherLength * sinVal);
+      ctx.moveTo(compStartX, bottomY);
+      ctx.lineTo(compStartX - featherLength * cosVal, bottomY + featherLength * sinVal);
+      
+      // 右端 (compEndX)：右(外側)に向けて羽を伸ばす
+      ctx.moveTo(compEndX, bottomY);
+      ctx.lineTo(compEndX + featherLength * cosVal, bottomY - featherLength * sinVal);
+      ctx.moveTo(compEndX, bottomY);
+      ctx.lineTo(compEndX + featherLength * cosVal, bottomY + featherLength * sinVal);
+      ctx.stroke();
+    }
+
+    // 試行の作成
+    const totalTrials = trials_design.length;
+
+    trials_design.forEach((config, index) => {
+      // 初期値を 100px 〜 300px の間でランダムに設定
+      const initialValue = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
+
+      const trial = {
+        type: jsPsychCanvasSliderResponse,
+        // canvas上に図形を描画する関数
+        stimulus: function(c) {
+          // 最初の描画（初期値）
+          drawMullerLyer(c, initialValue, config.angle, config.feather_length);
+        },
+        // canvasのサイズ設定
+        canvas_size: [350, 600], // [高さ, 幅]
+        // スライダーの設定
+        min: 50,
+        max: 350,
+        slider_start: initialValue,
+        step: 1,
+        labels: ['みじかく', 'ながく'],
+        button_label: '決定',
+        // 試行情報の表示 (控えめなグレーで上部に設置。スマホでもくっきり読めるサイズに調整)
+        prompt: `<div class="text-base sm:text-lg font-bold text-gray-500 mb-4 select-none">いま ${index + 1} 回目 / ぜんぶで ${totalTrials} 回</div>`,
+        // スライダーの値が変更されたら、リアルタイムに再描画を行う
+        on_load: function() {
+          const canvas = document.getElementById('jspsych-canvas-stimulus');
+          const slider = document.querySelector('input[type="range"]');
+          
+          if (slider && canvas) {
+            slider.addEventListener('input', function() {
+              const currentValue = parseInt(slider.value);
+              drawMullerLyer(canvas, currentValue, config.angle, config.feather_length);
+            });
+          }
+        },
+        // データの保存 (GASデータ形式に完全に紐づけ可能な名称で格納)
+        data: {
+          task: 'response',
+          trial_index_all: index + 1,
+          angle: config.angle,
+          wing_length: config.feather_length,
+          feather_length: config.feather_length,
+          initial_value: initialValue
+        }
+      };
+
+      timeline.push(trial);
+    });
+
+    // 実験の実行
+    jsPsych.run(timeline);
+  </script>
+</body>
+</html>
