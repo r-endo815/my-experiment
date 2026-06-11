@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Endo's Psychology Lab | 実験ポータル</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Noto Sans JP) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+    }
+    /* ふわっとしたフェードインアニメーション */
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-sky-100 selection:text-sky-800">
+
+  <!-- メインコンテンツ -->
+  <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto fade-in">
+      
+      <!-- ヘッダーエリア -->
+      <header class="text-center mb-16">
+        <div class="inline-flex items-center justify-center p-3 bg-gradient-to-br from-sky-400 via-sky-500 to-blue-500 rounded-2xl shadow-lg shadow-sky-400/20 mb-6">
+          <!-- 脳・知覚をモチーフにしたシンプルアートSVG -->
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+        </div>
+        
+        <!-- 見出し：グラデーション切り欠けバグを防ぐため、内側に十分なパディング(py-3 px-2)を適用し、leading-normalを指定 -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-sky-500 via-blue-600 to-sky-600 bg-clip-text text-transparent py-3 px-2 leading-normal mb-2 break-keep overflow-wrap-normal">
+          Endo's Psychology Lab
+        </h1>
+        <div class="h-1 w-20 bg-gradient-to-r from-sky-400 to-blue-500 mx-auto rounded-full mb-8"></div>
+        
+        <!-- 挨拶文カード -->
+        <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-sm border border-sky-100/50 max-w-2xl mx-auto">
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
+            ご訪問ありがとうございます。日常における認知や視覚の仕組みを解き明かすための研究を行っています。<br class="hidden sm:inline">
+            以下の実験へのご協力をお願いいたします。各実験は数分で終了し、スマートフォンやタブレットからでも簡単にご参加いただけます。
+          </p>
+        </div>
+      </header>
+
+      <!-- 実験リストエリア -->
+      <section class="space-y-6">
+        <h2 class="text-xl font-bold text-slate-400 tracking-wider uppercase text-center sm:text-left px-1 mb-4">
+          公開中のオンライン実験
+        </h2>
+
+        <!-- グリッドレイアウト -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <!-- 実験0: はじめてのWebページ -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-50 text-slate-500 border border-slate-100">
+                  記念アーカイブ
+                </span>
+                <span class="text-xs text-slate-400 font-medium">所要時間: 10秒</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-sky-500 transition-colors">
+                実験0：はじめてのWebページ
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                第2回で作成した記念すべき「Hello World」のページです。すべての始まりとなった基礎的なコードをご覧いただけます。
+              </p>
+            </div>
+            <div>
+              <a href="hello_world.html" class="block w-full text-center bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold py-3 px-4 rounded-xl transition duration-200 text-sm border border-slate-200">
+                Hello Worldを見る
+              </a>
+            </div>
+          </article>
+
+          <!-- 実験1: ストループ課題 -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-600 border border-sky-100">
+                  認知プロセス
+                </span>
+                <span class="text-xs text-slate-400 font-medium">所要時間: 約3分</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2">
+                実験1：ストループ課題
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                「文字の意味」と「文字の色」が一致しないときに生じる干渉現象を調べる、簡単なキーボード操作によるテストです。
+              </p>
+            </div>
+            <div>
+              <a href="stroop.html" class="block w-full text-center bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-3 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-sky-500/10">
+                実験1に参加する
+              </a>
+            </div>
+          </article>
+
+          <!-- 実験2: ミュラー・リヤー錯視 -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-600 border border-sky-100">
+                  視覚・知覚
+                </span>
+                <span class="text-xs text-slate-400 font-medium">所要時間: 約2分</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2">
+                実験2：ミュラー・リヤー錯視
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                おなじみの「矢印」の羽の向きによって、線の長さが違って見える不思議な錯覚現象を、スライダー操作で精密に測定します。
+              </p>
+            </div>
+            <div>
+              <a href="muller_lyer_final.html" class="block w-full text-center bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-3 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-sky-500/10">
+                実験2に参加する
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- 注意事項・安心感を与える補足情報 -->
+      <footer class="mt-16 text-center text-slate-400 text-xs space-y-2">
+        <p>※ 実験データは研究目的の統計処理のみに使用され、個人が特定されることはありません。</p>
+        <p>&copy; 2026 Endo's Psychology Lab. All rights reserved.</p>
+      </footer>
+
+    </div>
+  </main>
+
+</body>
+</html>
