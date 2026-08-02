@@ -219,7 +219,7 @@
                 📊 プレゼン資料を見る
               </a>
 
-              <!-- 実験レポートを見る (リンク先を小文字 stroopreport.html に変更) -->
+              <!-- 実験レポートを見る (【課題1対応】リンク先を小文字 stroopreport.html に変更) -->
               <a href="stroopreport.html" class="block w-full text-center bg-white hover:bg-slate-50 text-purple-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-purple-200 shadow-sm">
                 📝 実験レポートを見る (Quarto)
               </a>
@@ -277,7 +277,7 @@
     </div>
   </main>
 
-  <!-- キラキラエフェクトJSスクリプト -->
+  <!-- 【課題2対応】JavaScriptでページ読み込み時に自動でパーティクル（キラキラ）を生成 -->
   <script>
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -371,6 +371,15 @@
       }
     }
 
+    // 【課題2のポイント】初期化時に画面中央付近へ自動で弾けるキラキラを発生させる関数
+    function triggerInitialBurst() {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 3;
+      for (let i = 0; i < 30; i++) {
+        particles.push(new Particle(centerX, centerY, true));
+      }
+    }
+
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -387,7 +396,9 @@
       requestAnimationFrame(animate);
     }
 
+    // アニメーション開始 & 最初のキラキラエフェクト発火
     animate();
+    triggerInitialBurst();
   </script>
 </body>
 </html>
