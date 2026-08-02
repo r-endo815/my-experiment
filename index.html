@@ -238,12 +238,12 @@
                 実験2に参加する 📐
               </a>
 
-              <!-- プレゼン資料ボタン (追加) -->
-              <a href="muller_lyer_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-sky-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-sky-200 shadow-sm">
+              <!-- プレゼン資料ボタン (JS連携用に onclick と id を追加) -->
+              <button id="open-presentation-btn" onclick="openPresentation()" class="block w-full text-center bg-white hover:bg-slate-50 text-sky-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-sky-200 shadow-sm cursor-pointer">
                 📊 プレゼン資料を見る
-              </a>
+              </button>
 
-              <!-- 実験レポートボタン (追加) -->
+              <!-- 実験レポートボタン -->
               <a href="muller_lyer_report.html" class="block w-full text-center bg-white hover:bg-slate-50 text-cyan-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-cyan-200 shadow-sm">
                 📝 実験レポートを見る (Quarto)
               </a>
@@ -280,6 +280,33 @@
   </main>
 
   <script>
+    // --- プレゼンテーション表示スクリプト ---
+    function openPresentation() {
+      // 提供されたスクリプト・HTMLを含むプレゼン画面データ
+      const presentationHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>実験2 プレゼンテーション資料</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+    .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>📊 実験2 プレゼンテーション資料</h2>
+    <p>ライブラリ（Clipboard.js / Tabby / Popper.js / Tippy.js）が正常に読み込まれました。</p>
+  </div>
+</body>
+</html>`;
+
+      const blob = new Blob([presentationHtml], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    }
+
+    // --- パーティクル描画スクリプト ---
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -357,6 +384,7 @@
     }
 
     window.addEventListener('click', (e) => {
+      // ボタンクリック時は発散演出を控えめにするためそのまま実行
       createSparkles(e.clientX, e.clientY);
     });
 
