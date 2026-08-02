@@ -123,7 +123,6 @@
       
       <!-- ヘッダーエリア -->
       <header class="text-center mb-16 relative">
-        <!-- 背景に流れる光の粒のようなキラキラSVGデコレーション -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
           <svg class="absolute top-8 left-[10%] w-8 h-8 text-yellow-400 sparkle-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/>
@@ -192,7 +191,7 @@
             </div>
           </article>
 
-          <!-- 実験1: ストループ課題（修正部分：プレゼン資料等のボタンを追加） -->
+          <!-- 実験1: ストループ課題（修正後：プレゼン資料＋Quartoレポートを追加） -->
           <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
@@ -209,15 +208,20 @@
               </p>
             </div>
             
-            <div class="space-y-2.5 pt-2 border-t border-slate-100">
+            <div class="space-y-2 pt-2 border-t border-slate-100">
               <!-- 実験参加ボタン -->
               <a href="stroop.html" class="block w-full text-center bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-pink-500/20">
                 実験1に参加する 🎮
               </a>
 
-              <!-- プレゼン資料を見る (指定の my_presentation.html へリンク) -->
-              <a href="my_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-indigo-600 font-semibold py-2 px-4 rounded-xl transition duration-200 text-xs border border-indigo-200 shadow-sm">
+              <!-- プレゼン資料を見る -->
+              <a href="my_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-indigo-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-indigo-200 shadow-sm">
                 📊 プレゼン資料を見る
+              </a>
+
+              <!-- 実験レポートを見る (Quartoレポートへのリンクを追加) -->
+              <a href="StroopReport.html" class="block w-full text-center bg-white hover:bg-slate-50 text-purple-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-purple-200 shadow-sm">
+                📝 実験レポートを見る (Quarto)
               </a>
             </div>
           </article>
@@ -387,4 +391,3 @@
   </script>
 </body>
 </html>
-
