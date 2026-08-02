@@ -16,6 +16,7 @@
       font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
     }
     
+    /* ふわっとしたフェードインアニメーション */
     .fade-in {
       animation: fadeIn 0.8s ease-out forwards;
     }
@@ -30,6 +31,7 @@
       }
     }
 
+    /* レインボーがゆったり流れるアニメーション */
     @keyframes rainbow-flow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -40,6 +42,7 @@
       animation: rainbow-flow 4s ease-in-out infinite;
     }
 
+    /* 背景のオーロラ風グラデーションアニメーション */
     @keyframes bg-aurora {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -51,6 +54,7 @@
       animation: bg-aurora 15s ease infinite;
     }
 
+    /* キラキラが瞬くアニメーション */
     @keyframes sparkle-twinkle {
       0%, 100% {
         opacity: 0.2;
@@ -72,6 +76,7 @@
       animation: sparkle-twinkle 1.5s ease-in-out infinite 0.8s;
     }
 
+    /* カードホバー時のド派手なレインボーネオンシャドウ */
     .hover-rainbow-shadow {
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
@@ -95,6 +100,7 @@
       box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
     }
 
+    /* 飛び散るパーティクル用のキャンバス */
     #particle-canvas {
       position: fixed;
       top: 0;
@@ -108,8 +114,10 @@
 </head>
 <body class="bg-aurora-glow text-slate-800 min-h-screen flex flex-col justify-between selection:bg-sky-200 selection:text-sky-900 overflow-x-hidden">
 
+  <!-- キラキラエフェクト用のキャンバス -->
   <canvas id="particle-canvas"></canvas>
 
+  <!-- メインコンテンツ -->
   <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="max-w-4xl mx-auto fade-in">
       
@@ -201,21 +209,24 @@
             </div>
             
             <div class="space-y-2 pt-2 border-t border-slate-100">
+              <!-- 実験参加ボタン -->
               <a href="stroop.html" class="block w-full text-center bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-pink-500/20">
                 実験1に参加する 🎮
               </a>
 
+              <!-- プレゼン資料を見る -->
               <a href="my_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-indigo-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-indigo-200 shadow-sm">
                 📊 プレゼン資料を見る
               </a>
 
+              <!-- 実験レポートを見る (【課題1対応】リンク先を小文字 stroopreport.html に変更) -->
               <a href="stroopreport.html" class="block w-full text-center bg-white hover:bg-slate-50 text-purple-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-purple-200 shadow-sm">
                 📝 実験レポートを見る (Quarto)
               </a>
             </div>
           </article>
 
-          <!-- 実験2: ミュラー・リヤー錯視（ボタン拡張版） -->
+          <!-- 実験2: ミュラー・リヤー錯視 -->
           <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
@@ -232,31 +243,18 @@
               </p>
             </div>
             
-            <div class="space-y-2 pt-2 border-t border-slate-100">
-              <!-- 実験参加ボタン -->
-              <a href="muller_lyer_final.html" class="block w-full text-center bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-sky-500/20">
+            <div class="space-y-3.5 pt-2 border-t border-slate-100">
+              <a href="muller_lyer_final.html" class="block w-full text-center bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white font-bold py-3 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-sky-500/20">
                 実験2に参加する 📐
               </a>
-
-              <!-- プレゼン資料ボタン (追加) -->
-              <a href="muller_lyer_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-sky-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-sky-200 shadow-sm">
-                📊 プレゼン資料を見る
-              </a>
-
-              <!-- 実験レポートボタン (追加) -->
-              <a href="muller_lyer_report.html" class="block w-full text-center bg-white hover:bg-slate-50 text-cyan-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-cyan-200 shadow-sm">
-                📝 実験レポートを見る (Quarto)
-              </a>
-
-              <!-- プレレジ確認ボタン -->
-              <a href="https://github.com/r-endo815/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 w-full text-center bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-800 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-slate-200 shadow-sm">
+              
+              <a href="https://github.com/r-endo815/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 w-full text-center bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-800 font-semibold py-2 px-4 rounded-xl transition duration-200 text-xs border border-slate-200 shadow-sm">
                 <span>📄 プレレジを確認する</span>
                 <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                 </svg>
               </a>
 
-              <!-- 変更履歴ボタン -->
               <a href="https://github.com/r-endo815/my-experiment/commits/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 w-full text-center text-slate-400 hover:text-slate-600 transition duration-200 text-[11px] font-medium py-1">
                 <span>🕒 変更履歴（タイムスタンプ証明）</span>
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -269,7 +267,7 @@
         </div>
       </section>
 
-      <!-- フッター -->
+      <!-- 注意事項・安心感を与える補足情報 -->
       <footer class="mt-16 text-center text-slate-400 text-xs space-y-2">
         <p>✨ 画面をタップすると何かが起こるよ！ ✨</p>
         <p>※ 実験データは研究目的の統計処理のみに使用され、個人が特定されることはありません。</p>
@@ -279,6 +277,7 @@
     </div>
   </main>
 
+  <!-- 【課題2対応】JavaScriptでページ読み込み時に自動でパーティクル（キラキラ）を生成 -->
   <script>
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -372,6 +371,7 @@
       }
     }
 
+    // 【課題2のポイント】初期化時に画面中央付近へ自動で弾けるキラキラを発生させる関数
     function triggerInitialBurst() {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 3;
@@ -396,6 +396,7 @@
       requestAnimationFrame(animate);
     }
 
+    // アニメーション開始 & 最初のキラキラエフェクト発火
     animate();
     triggerInitialBurst();
   </script>
