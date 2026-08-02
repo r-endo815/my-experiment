@@ -214,12 +214,12 @@
                 実験1に参加する 🎮
               </a>
 
-              <!-- プレゼン資料を見る -->
+              <!-- プレゼン資料を見る (【更新】指定ファイルへ遷移するようにリンクを修正) -->
               <a href="my_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-indigo-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-indigo-200 shadow-sm">
                 📊 プレゼン資料を見る
               </a>
 
-              <!-- 実験レポートを見る (【課題1対応】リンク先を小文字 stroopreport.html に変更) -->
+              <!-- 実験レポートを見る -->
               <a href="stroopreport.html" class="block w-full text-center bg-white hover:bg-slate-50 text-purple-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-purple-200 shadow-sm">
                 📝 実験レポートを見る (Quarto)
               </a>
@@ -251,7 +251,7 @@
               <a href="https://github.com/r-endo815/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 w-full text-center bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-800 font-semibold py-2 px-4 rounded-xl transition duration-200 text-xs border border-slate-200 shadow-sm">
                 <span>📄 プレレジを確認する</span>
                 <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                 </svg>
               </a>
 
@@ -277,7 +277,6 @@
     </div>
   </main>
 
-  <!-- 【課題2対応】JavaScriptでページ読み込み時に自動でパーティクル（キラキラ）を生成 -->
   <script>
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -371,7 +370,6 @@
       }
     }
 
-    // 【課題2のポイント】初期化時に画面中央付近へ自動で弾けるキラキラを発生させる関数
     function triggerInitialBurst() {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 3;
@@ -396,7 +394,6 @@
       requestAnimationFrame(animate);
     }
 
-    // アニメーション開始 & 最初のキラキラエフェクト発火
     animate();
     triggerInitialBurst();
   </script>
