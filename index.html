@@ -1,111 +1,403 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
-<meta name="author" content="遠藤璃星(2412A10)">
-<title>ミュラーリヤー錯視</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta charset="UTF-8">
+  <title>Endo's Psychology Lab | 実験ポータル</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Noto Sans JP) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght=300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-<!-- 必要なライブラリの読み込み -->
-<script>
-/*! clipboard.js v2.0.11 | MIT License */
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.ClipboardJS=e():t.ClipboardJS=e()}(this,function(){return n={686:function(t,e,n){"use strict";n.d(e,{default:function(){return b}});var e=n(279),i=n.n(e),e=n(370),u=n.n(e),e=n(817),r=n.n(e);function c(t){try{return document.execCommand(t)}catch(t){return}}var a=function(t){t=r()(t);return c("cut"),t};function o(t,e){var n,o,t=(n=t,o="rtl"===document.documentElement.getAttribute("dir"),(t=document.createElement("textarea")).style.fontSize="12pt",t.style.border="0",t.style.padding="0",t.style.margin="0",t.style.position="absolute",t.style[o?"right":"left"]="-9999px",o=window.pageYOffset||document.documentElement.scrollTop,t.style.top="".concat(o,"px"),t.setAttribute("readonly",""),t.value=n,t);return e.container.appendChild(t),e=r()(t),c("copy"),t.remove(),e}var f=function(t){var e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{container:document.body},n="";return"string"==typeof t?n=o(t,e):t instanceof HTMLInputElement&&!["text","search","url","tel","password"].includes(null==t?void 0:t.type)?n=o(t.value,e):(n=r()(t),c("copy")),n};function l(t){return(l="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}var s=function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{},e=t.action,n=void 0===e?"copy":e,o=t.container,e=t.target,t=t.text;if("copy"!==n&&"cut"!==n)throw new Error('Invalid "action" value, use either "copy" or "cut"');if(void 0!==e){if(!e||"object"!==l(e)||1!==e.nodeType)throw new Error('Invalid "target" value, use a valid Element');if("copy"===n&&e.hasAttribute("disabled"))throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');if("cut"===n&&(e.hasAttribute("readonly")||e.hasAttribute("disabled")))throw new Error('Invalid "target" attribute. You can\'t cut text from elements with "readonly" or "disabled" attributes')}return t?f(t,{container:o}):e?"cut"===n?a(e):f(e,{container:o}):void 0};function p(t){return(p="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function d(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function y(t,e){return(y=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t})(t,e)}function h(n){var o=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Date.prototype.toString.call(Reflect.construct(Date,[],function(){})),!0}catch(t){return!1}}();return function(){var t,e=v(n);return t=o?(t=v(this).constructor,Reflect.construct(e,arguments,t)):e.apply(this,arguments),e=this,!(t=t)||"object"!==p(t)&&"function"!=typeof t?function(t){if(void 0!==t)return t;throw new ReferenceError("this hasn't been initialised - super() hasn't been called")}(e):t}}function v(t){return(v=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)})(t)}function m(t,e){t="data-clipboard-".concat(t);if(e.hasAttribute(t))return e.getAttribute(t)}var b=function(){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&y(t,e)}(r,i());var t,e,n,o=h(r);function r(t,e){var n;return function(t){if(!(t instanceof r))throw new TypeError("Cannot call a class as a function")}(this),(n=o.call(this)).resolveOptions(e),n.listenClick(t),n}return t=r,n=[{key:"copy",value:function(t){var e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{container:document.body};return f(t,e)}},{key:"cut",value:function(t){return a(t)}},{key:"isSupported",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:["copy","cut"],t="string"==typeof t?[t]:t,e=!!document.queryCommandSupported;return t.forEach(function(t){e=e&&!!document.queryCommandSupported(t)}),e}}],(e=[{key:"resolveOptions",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};this.action="function"==typeof t.action?t.action:this.defaultAction,this.target="function"==typeof t.target?t.target:this.defaultTarget,this.text="function"==typeof t.text?t.text:this.defaultText,this.container="object"===p(t.container)?t.container:document.body}},{key:"listenClick",value:function(t){var e=this;this.listener=u()(t,"click",function(t){return e.onClick(t)})}},{key:"onClick",value:function(t){var e=t.delegateTarget||t.currentTarget,n=this.action(e)||"copy",t=s({action:n,container:this.container,target:this.target(e),text:this.text(e)});this.emit(t?"success":"error",{action:n,text:t,trigger:e,clearSelection:function(){e&&e.focus(),window.getSelection().removeAllRanges()}})}},{key:"defaultAction",value:function(t){return m("action",t)}},{key:"defaultTarget",value:function(t){t=m("target",t);if(t)return document.querySelector(t)}},{key:"defaultText",value:function(t){return m("text",t)}},{key:"destroy",value:function(){this.listener.destroy()}}])&&d(t.prototype,e),n&&d(t,n),r}()},828:function(t){var e;"undefined"==typeof Element||Element.prototype.matches||((e=Element.prototype).matches=e.matchesSelector||e.mozMatchesSelector||e.msMatchesSelector||e.oMatchesSelector||e.webkitMatchesSelector),t.exports=function(t,e){for(;t&&9!==t.nodeType;){if("function"==typeof t.matches&&t.matches(e))return t;t=t.parentNode}}},438:function(t,e,n){var u=n(828);function i(t,e,n,o,r){var i=function(e,n,t,o){return function(t){t.delegateTarget=u(t.target,n),t.delegateTarget&&o.call(e,t)}}.apply(this,arguments);return t.addEventListener(n,i,r),{destroy:function(){t.removeEventListener(n,i,r)}}}t.exports=function(t,e,n,o,r){return"function"==typeof t.addEventListener?i.apply(null,arguments):"function"==typeof n?i.bind(null,document).apply(null,arguments):("string"==typeof t&&(t=document.querySelectorAll(t)),Array.prototype.map.call(t,function(t){return i(t,e,n,o,r)}))}},879:function(t,n){n.node=function(t){return void 0!==t&&t instanceof HTMLElement&&1===t.nodeType},n.nodeList=function(t){var e=Object.prototype.toString.call(t);return void 0!==t&&("[object NodeList]"===e||"[object HTMLCollection]"===e)&&"length"in t&&(0===t.length||n.node(t[0]))},n.string=function(t){return"string"==typeof t||t instanceof String},n.fn=function(t){return"[object Function]"===Object.prototype.toString.call(t)}},370:function(t,e,n){var f=n(879),l=n(438);t.exports=function(t,e,n){if(!t&&!e&&!n)throw new Error("Missing required arguments");if(!f.string(e))throw new TypeError("Second argument must be a String");if(!f.fn(n))throw new TypeError("Third argument must be a Function");if(f.node(t))return c=e,a=n,(u=t).addEventListener(c,a),{destroy:function(){u.removeEventListener(c,a)}};if(f.nodeList(t))return o=t,r=e,i=n,Array.prototype.forEach.call(o,function(t){t.addEventListener(r,i)}),{destroy:function(){Array.prototype.forEach.call(o,function(t){t.removeEventListener(r,i)})}};if(f.string(t))return t=t,e=e,n=n,l(document.body,t,e,n);throw new TypeError("First argument must be a String, HTMLElement, HTMLCollection, or NodeList");var o,r,i,u,c,a}},817:function(t){t.exports=function(t){var e,n="SELECT"===t.nodeName?(t.focus(),t.value):"INPUT"===t.nodeName||"TEXTAREA"===t.nodeName?((e=t.hasAttribute("readonly"))||t.setAttribute("readonly",""),t.select(),t.setSelectionRange(0,t.value.length),e||t.removeAttribute("readonly"),t.value):(t.hasAttribute("contenteditable")&&t.focus(),n=window.getSelection(),(e=document.createRange()).selectNodeContents(t),n.removeAllRanges(),n.addRange(e),n.toString());return n}},279:function(t){function e(){}e.prototype={on:function(t,e,n){var o=this.e||(this.e={});return(o[t]||(o[t]=[])).push({fn:e,ctx:n}),this},once:function(t,e,n){var o=this;function r(){o.off(t,r),e.apply(n,arguments)}return r._=e,this.on(t,r,n)},emit:function(t){for(var e=[].slice.call(arguments,1),n=((this.e||(this.e={}))[t]||[]).slice(),o=0,r=n.length;o<r;o++)n[o].fn.apply(n[o].ctx,e);return this},off:function(t,e){var n=this.e||(this.e={}),o=n[t],r=[];if(o&&e)for(var i=0,u=o.length;i<u;i++)o[i].fn!==e&&o[i].fn._!==e&&r.push(o[i]);return r.length?n[t]=r:delete n[t],this}},t.exports=e,t.exports.TinyEmitter=e}},r={},o.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return o.d(e,{a:e}),e},o.d=function(t,e){for(var n in e)o.o(e,n)&&!o.o(t,n)&&Object.defineProperty(t,n,{enumerable:!0,get:e[n]})},o.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},o(686).default;function o(t){if(r[t])return r[t].exports;var e=r[t]={exports:{}};return n[t](e,e.exports,o),e.exports}var n,r});
-</script>
+    @keyframes rainbow-flow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .rainbow-animation {
+      background-size: 200% auto;
+      animation: rainbow-flow 4s ease-in-out infinite;
+    }
 
-<style type="text/css">
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  scroll-behavior: smooth; /* スムーススクロール有効化 */
-}
+    @keyframes bg-aurora {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .bg-aurora-glow {
+      background: linear-gradient(-45deg, #f1f5f9, #e0f2fe, #fae8ff, #f0fdf4);
+      background-size: 400% 400%;
+      animation: bg-aurora 15s ease infinite;
+    }
 
-/* トップヒーローエリアのスタイル */
-.top-nav-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f7f6;
-  text-align: center;
-  padding: 20px;
-  box-sizing: border-box;
-}
+    @keyframes sparkle-twinkle {
+      0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.6) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.4) rotate(45deg);
+        filter: drop-shadow(0 0 8px rgba(253, 224, 71, 1));
+      }
+    }
+    .sparkle-1 {
+      animation: sparkle-twinkle 1.8s ease-in-out infinite;
+    }
+    .sparkle-2 {
+      animation: sparkle-twinkle 2.2s ease-in-out infinite 0.4s;
+    }
+    .sparkle-3 {
+      animation: sparkle-twinkle 1.5s ease-in-out infinite 0.8s;
+    }
 
-.top-nav-container h1 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
+    .hover-rainbow-shadow {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .hover-rainbow-shadow::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 24px;
+      background: linear-gradient(45deg, #ff007f, #00f0ff, #ff00ff, #00ffaa);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      filter: blur(8px);
+    }
+    .hover-rainbow-shadow:hover::before {
+      opacity: 0.7;
+    }
+    .hover-rainbow-shadow:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+    }
 
-.top-nav-container p {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 30px;
-}
-
-/* プレゼン資料を見るボタンのスタイル */
-.btn-presentation {
-  display: inline-block;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #00769E;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.btn-presentation:hover {
-  background-color: #005a78;
-  transform: translateY(-2px);
-}
-
-/* プレゼン資料エリア */
-.presentation-section {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.reveal .r-stretch,.reveal .stretch{max-width:none;max-height:none}.reveal pre.r-stretch code,.reveal pre.stretch code{height:100%;max-height:100%;box-sizing:border-box}.reveal .r-fit-text{display:inline-block;white-space:nowrap}.reveal .r-stack{display:grid;grid-template-rows:100%}.reveal .r-stack>*{grid-area:1/1;margin:auto}.reveal .r-hstack,.reveal .r-vstack{display:flex}.reveal .r-hstack img,.reveal .r-hstack video,.reveal .r-vstack img,.reveal .r-vstack video{min-width:0;min-height:0;object-fit:contain}.reveal .r-vstack{flex-direction:column;align-items:center;justify-content:center}.reveal .r-hstack{flex-direction:row;align-items:center;justify-content:center}.reveal .items-stretch{align-items:stretch}.reveal .items-start{align-items:flex-start}.reveal .items-center{align-items:center}.reveal .items-end{align-items:flex-end}.reveal .justify-between{justify-content:space-between}.reveal .justify-around{justify-content:space-around}.reveal .justify-start{justify-content:flex-start}.reveal .justify-center{justify-content:center}.reveal .justify-end{justify-content:flex-end}.reveal-viewport{height:100%;overflow:hidden;position:relative;line-height:1;margin:0;background-color:#fff;color:#000;--r-controls-spacing:12px}.reveal .fragment{transition:all .2s ease}.reveal .fragment:not(.custom){opacity:0;visibility:hidden;will-change:opacity}.reveal .fragment.visible{opacity:1;visibility:inherit}
-</style>
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
 </head>
+<body class="bg-aurora-glow text-slate-800 min-h-screen flex flex-col justify-between selection:bg-sky-200 selection:text-sky-900 overflow-x-hidden">
 
-<body>
+  <canvas id="particle-canvas"></canvas>
 
-  <!-- 1. プレゼン遷移用トップエリア -->
-  <div class="top-nav-container">
-    <h1>ミュラーリヤー錯視</h1>
-    <p>著者: 遠藤璃星 (2412A10)</p>
-    <!-- このボタンを押すと下のプレゼン資料部分にスキップ/ジャンプします -->
-    <a href="#presentation-section" class="btn-presentation">プレゼン資料を見る</a>
-  </div>
+  <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-4xl mx-auto fade-in">
+      
+      <!-- ヘッダーエリア -->
+      <header class="text-center mb-16 relative">
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+          <svg class="absolute top-8 left-[10%] w-8 h-8 text-yellow-400 sparkle-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/>
+          </svg>
+          <svg class="absolute top-2 right-[8%] w-10 h-10 text-pink-400 sparkle-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/>
+          </svg>
+          <svg class="absolute bottom-2 right-[12%] w-6 h-6 text-cyan-400 sparkle-3" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/>
+          </svg>
+          <svg class="absolute bottom-4 left-[15%] w-5 h-5 text-purple-400 sparkle-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/>
+          </svg>
+        </div>
 
-  <!-- 2. プレゼン資料本体エリア -->
-  <div id="presentation-section" class="presentation-section reveal-viewport">
-    <div class="reveal">
-      <div class="slides">
-        <section>
-          <h2>ミュラーリヤー錯視</h2>
-          <p>プレゼンテーションスライドへようこそ</p>
-        </section>
-        <section>
-          <h2>概要</h2>
-          <p>ここに錯視のメカニズムや実験結果を記載します。</p>
-        </section>
-      </div>
+        <div class="inline-flex items-center justify-center p-3 bg-gradient-to-br from-pink-400 via-yellow-300 via-cyan-400 to-purple-500 rounded-3xl shadow-xl shadow-cyan-400/20 mb-6 rainbow-animation">
+          <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 via-sky-400 via-emerald-400 via-yellow-400 to-pink-500 bg-clip-text text-transparent py-3 px-2 leading-normal mb-2 break-keep overflow-wrap-normal rainbow-animation drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
+          Endo's Psychology Lab
+        </h1>
+        <div class="h-1.5 w-32 bg-gradient-to-r from-pink-500 via-cyan-400 via-yellow-300 to-purple-500 mx-auto rounded-full mb-8 rainbow-animation"></div>
+        
+        <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-md border border-sky-100 max-w-2xl mx-auto transition-transform hover:scale-[1.01]">
+          <p class="text-slate-700 text-base sm:text-lg leading-relaxed font-semibold">
+            ✨ ご訪問ありがとうございます！ ✨<br>
+            日常における認知や視覚の面白い仕組みを解き明かすための研究を行っています。<br class="hidden sm:inline">
+            各実験は数分で終了します。スマホやタブレットからも、いつでも大歓迎です！
+          </p>
+        </div>
+      </header>
+
+      <!-- 実験リストエリア -->
+      <section class="space-y-6">
+        <h2 class="text-xl font-black text-slate-500 tracking-wider uppercase text-center sm:text-left px-1 mb-4 flex items-center justify-center sm:justify-start gap-2">
+          <span class="bg-gradient-to-r from-pink-500 to-cyan-500 bg-clip-text text-transparent rainbow-animation">🚀 公開中のオンライン実験</span>
+          <span class="text-yellow-400 sparkle-1">✨</span>
+        </h2>
+
+        <!-- グリッドレイアウト -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <!-- 実験0: はじめてのWebページ -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500 border border-slate-200">
+                  記念アーカイブ 📜
+                </span>
+                <span class="text-xs text-slate-400 font-bold">所要時間: 10秒</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-sky-500 transition-colors">
+                実験0：はじめてのWebページ
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                第2回で作成した記念すべき「Hello World」のページです。すべての始まりとなった基礎的なコードをご覧いただけます。
+              </p>
+            </div>
+            <div>
+              <a href="hello_world.html" class="block w-full text-center bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold py-3 px-4 rounded-xl transition duration-200 text-sm border border-slate-200 shadow-sm">
+                Hello Worldを見る 👀
+              </a>
+            </div>
+          </article>
+
+          <!-- 実験1: ストループ課題 -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-pink-50 text-pink-600 border border-pink-100">
+                  認知プロセス 🧠
+                </span>
+                <span class="text-xs text-slate-400 font-bold">所要時間: 約3分</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2">
+                実験1：ストループ課題
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                「文字の意味」と「文字の色」が一致しないときに生じる脳の干渉現象を調べる、簡単なキーボード操作テストです。
+              </p>
+            </div>
+            
+            <div class="space-y-2 pt-2 border-t border-slate-100">
+              <a href="stroop.html" class="block w-full text-center bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-pink-500/20">
+                実験1に参加する 🎮
+              </a>
+
+              <a href="my_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-indigo-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-indigo-200 shadow-sm">
+                📊 プレゼン資料を見る
+              </a>
+
+              <a href="stroopreport.html" class="block w-full text-center bg-white hover:bg-slate-50 text-purple-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-purple-200 shadow-sm">
+                📝 実験レポートを見る (Quarto)
+              </a>
+            </div>
+          </article>
+
+          <!-- 実験2: ミュラー・リヤー錯視（ボタン拡張版） -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-cyan-50 text-cyan-600 border border-cyan-100">
+                  視覚・知覚 👁️
+                </span>
+                <span class="text-xs text-slate-400 font-bold">所要時間: 約2分</span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2">
+                実験2：ミュラー・リヤー錯視
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                矢印の向きによって線の長さが違って見える不思議な目の錯覚現象を、スライダー操作で楽しく測定します。
+              </p>
+            </div>
+            
+            <div class="space-y-2 pt-2 border-t border-slate-100">
+              <!-- 実験参加ボタン -->
+              <a href="muller_lyer_final.html" class="block w-full text-center bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-sky-500/20">
+                実験2に参加する 📐
+              </a>
+
+              <!-- プレゼン資料ボタン (追加) -->
+              <a href="muller_lyer_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-sky-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-sky-200 shadow-sm">
+                📊 プレゼン資料を見る
+              </a>
+
+              <!-- 実験レポートボタン (追加) -->
+              <a href="muller_lyer_report.html" class="block w-full text-center bg-white hover:bg-slate-50 text-cyan-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-cyan-200 shadow-sm">
+                📝 実験レポートを見る (Quarto)
+              </a>
+
+              <!-- プレレジ確認ボタン -->
+              <a href="https://github.com/r-endo815/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 w-full text-center bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-800 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-slate-200 shadow-sm">
+                <span>📄 プレレジを確認する</span>
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </a>
+
+              <!-- 変更履歴ボタン -->
+              <a href="https://github.com/r-endo815/my-experiment/commits/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 w-full text-center text-slate-400 hover:text-slate-600 transition duration-200 text-[11px] font-medium py-1">
+                <span>🕒 変更履歴（タイムスタンプ証明）</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- フッター -->
+      <footer class="mt-16 text-center text-slate-400 text-xs space-y-2">
+        <p>✨ 画面をタップすると何かが起こるよ！ ✨</p>
+        <p>※ 実験データは研究目的の統計処理のみに使用され、個人が特定されることはありません。</p>
+        <p>&copy; 2026 Endo's Psychology Lab. All rights reserved.</p>
+      </footer>
+
     </div>
-  </div>
+  </main>
 
+  <script>
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y, isClick = false) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * (isClick ? 12 : 6) + 4;
+        
+        if (isClick) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 4 + 2;
+          this.speedX = Math.cos(angle) * speed;
+          this.speedY = Math.sin(angle) * speed;
+        } else {
+          this.speedX = Math.random() * 1 - 0.5;
+          this.speedY = -(Math.random() * 1.5 + 0.5);
+        }
+
+        const colors = [
+          'rgba(255, 105, 180, ',
+          'rgba(135, 206, 250, ',
+          'rgba(147, 112, 219, ',
+          'rgba(255, 215, 0, ',
+          'rgba(0, 250, 154, '
+        ];
+        this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+        this.alpha = 1;
+        this.decay = Math.random() * 0.015 + 0.005;
+        this.angle = Math.random() * Math.PI;
+        this.spin = Math.random() * 0.04 - 0.02;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= this.decay;
+        this.angle += this.spin;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = this.colorBase + this.alpha + ')';
+        
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(0, -this.size);
+          ctx.rotate(Math.PI / 5);
+          ctx.lineTo(0, -this.size / 2.5);
+          ctx.rotate(Math.PI / 5);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function handlePeriodicParticles() {
+      if (particles.length < 50 && Math.random() < 0.08) {
+        const x = Math.random() * canvas.width;
+        const y = canvas.height + 20;
+        particles.push(new Particle(x, y, false));
+      }
+    }
+
+    window.addEventListener('click', (e) => {
+      createSparkles(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) {
+        createSparkles(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    });
+
+    function createSparkles(x, y) {
+      for (let i = 0; i < 15; i++) {
+        particles.push(new Particle(x, y, true));
+      }
+    }
+
+    function triggerInitialBurst() {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 3;
+      for (let i = 0; i < 30; i++) {
+        particles.push(new Particle(centerX, centerY, true));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      handlePeriodicParticles();
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        if (particles[i].alpha <= 0) {
+          particles.splice(i, 1);
+        } else {
+          particles[i].draw();
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+    triggerInitialBurst();
+  </script>
 </body>
 </html>
