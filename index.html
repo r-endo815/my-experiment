@@ -16,7 +16,6 @@
       font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
     }
     
-    /* ふわっとしたフェードインアニメーション */
     .fade-in {
       animation: fadeIn 0.8s ease-out forwards;
     }
@@ -31,7 +30,6 @@
       }
     }
 
-    /* レインボーがゆったり流れるアニメーション */
     @keyframes rainbow-flow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -42,7 +40,6 @@
       animation: rainbow-flow 4s ease-in-out infinite;
     }
 
-    /* 背景のオーロラ風グラデーションアニメーション */
     @keyframes bg-aurora {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -54,7 +51,6 @@
       animation: bg-aurora 15s ease infinite;
     }
 
-    /* キラキラが瞬くアニメーション */
     @keyframes sparkle-twinkle {
       0%, 100% {
         opacity: 0.2;
@@ -66,34 +62,39 @@
         filter: drop-shadow(0 0 8px rgba(253, 224, 71, 1));
       }
     }
-    .sparkle-1 { animation: sparkle-twinkle 1.8s ease-in-out infinite; }
-    .sparkle-2 { animation: sparkle-twinkle 2.2s ease-in-out infinite 0.4s; }
-    .sparkle-3 { animation: sparkle-twinkle 1.5s ease-in-out infinite 0.8s; }
+    .sparkle-1 {
+      animation: sparkle-twinkle 1.8s ease-in-out infinite;
+    }
+    .sparkle-2 {
+      animation: sparkle-twinkle 2.2s ease-in-out infinite 0.4s;
+    }
+    .sparkle-3 {
+      animation: sparkle-twinkle 1.5s ease-in-out infinite 0.8s;
+    }
 
-    /* カードホバー時のネオン枠アニメーション */
     .hover-rainbow-shadow {
-      transition: transform 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
     .hover-rainbow-shadow::before {
       content: '';
       position: absolute;
-      inset: -3px;
-      border-radius: 28px;
+      inset: -2px;
+      border-radius: 24px;
       background: linear-gradient(45deg, #ff007f, #00f0ff, #ff00ff, #00ffaa);
-      z-index: 0;
+      z-index: -1;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease;
       filter: blur(8px);
     }
     .hover-rainbow-shadow:hover::before {
-      opacity: 0.8;
+      opacity: 0.7;
     }
     .hover-rainbow-shadow:hover {
-      transform: translateY(-6px);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
     }
 
-    /* 飛び散るパーティクル用のキャンバス */
     #particle-canvas {
       position: fixed;
       top: 0;
@@ -107,12 +108,10 @@
 </head>
 <body class="bg-aurora-glow text-slate-800 min-h-screen flex flex-col justify-between selection:bg-sky-200 selection:text-sky-900 overflow-x-hidden">
 
-  <!-- キラキラエフェクト用のキャンバス -->
   <canvas id="particle-canvas"></canvas>
 
-  <!-- メインコンテンツ -->
   <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="max-w-5xl mx-auto fade-in">
+    <div class="max-w-4xl mx-auto fade-in">
       
       <!-- ヘッダーエリア -->
       <header class="text-center mb-16 relative">
@@ -137,12 +136,12 @@
           </svg>
         </div>
         
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 via-sky-400 via-emerald-400 via-yellow-400 to-pink-500 bg-clip-text text-transparent py-3 px-2 leading-normal mb-2 break-keep overflow-wrap-normal rainbow-animation drop-shadow-sm">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 via-sky-400 via-emerald-400 via-yellow-400 to-pink-500 bg-clip-text text-transparent py-3 px-2 leading-normal mb-2 break-keep overflow-wrap-normal rainbow-animation drop-shadow-[0_2px_10px_rgba(255,255,255,0.8)]">
           Endo's Psychology Lab
         </h1>
         <div class="h-1.5 w-32 bg-gradient-to-r from-pink-500 via-cyan-400 via-yellow-300 to-purple-500 mx-auto rounded-full mb-8 rainbow-animation"></div>
         
-        <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 max-w-2xl mx-auto">
+        <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-md border border-sky-100 max-w-2xl mx-auto transition-transform hover:scale-[1.01]">
           <p class="text-slate-700 text-base sm:text-lg leading-relaxed font-semibold">
             ✨ ご訪問ありがとうございます！ ✨<br>
             日常における認知や視覚の面白い仕組みを解き明かすための研究を行っています。<br class="hidden sm:inline">
@@ -153,7 +152,7 @@
 
       <!-- 実験リストエリア -->
       <section class="space-y-6">
-        <h2 class="text-xl font-black text-slate-600 tracking-wider uppercase text-center sm:text-left px-1 mb-4 flex items-center justify-center sm:justify-start gap-2">
+        <h2 class="text-xl font-black text-slate-500 tracking-wider uppercase text-center sm:text-left px-1 mb-4 flex items-center justify-center sm:justify-start gap-2">
           <span class="bg-gradient-to-r from-pink-500 to-cyan-500 bg-clip-text text-transparent rainbow-animation">🚀 公開中のオンライン実験</span>
           <span class="text-yellow-400 sparkle-1">✨</span>
         </h2>
@@ -162,124 +161,115 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
           <!-- 実験0: はじめてのWebページ -->
-          <article class="hover-rainbow-shadow rounded-3xl">
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md flex flex-col justify-between h-full relative z-10">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
-                    記念アーカイブ 📜
-                  </span>
-                  <span class="text-xs text-slate-400 font-bold">所要時間: 10秒</span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-2">
-                  実験0：はじめてのWebページ
-                </h3>
-                <p class="text-sm text-slate-600 leading-relaxed mb-6">
-                  第2回で作成した記念すべき「Hello World」のページです。すべての始まりとなった基礎的なコードをご覧いただけます。
-                </p>
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500 border border-slate-200">
+                  記念アーカイブ 📜
+                </span>
+                <span class="text-xs text-slate-400 font-bold">所要時間: 10秒</span>
               </div>
-              <div>
-                <a href="hello_world.html" class="block w-full text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm border border-slate-300 shadow-sm">
-                  Hello Worldを見る 👀
-                </a>
-              </div>
+              <h3 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-sky-500 transition-colors">
+                実験0：はじめてのWebページ
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                第2回で作成した記念すべき「Hello World」のページです。すべての始まりとなった基礎的なコードをご覧いただけます。
+              </p>
+            </div>
+            <div>
+              <a href="hello_world.html" class="block w-full text-center bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold py-3 px-4 rounded-xl transition duration-200 text-sm border border-slate-200 shadow-sm">
+                Hello Worldを見る 👀
+              </a>
             </div>
           </article>
 
           <!-- 実験1: ストループ課題 -->
-          <article class="hover-rainbow-shadow rounded-3xl">
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md flex flex-col justify-between h-full relative z-10">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-pink-50 text-pink-600 border border-pink-200">
-                    認知プロセス 🧠
-                  </span>
-                  <span class="text-xs text-slate-400 font-bold">所要時間: 約3分</span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-2">
-                  実験1：ストループ課題
-                </h3>
-                <p class="text-sm text-slate-600 leading-relaxed mb-6">
-                  「文字の意味」と「文字の色」が一致しないときに生じる脳の干渉現象を調べる、簡単なキーボード操作テストです。
-                </p>
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-pink-50 text-pink-600 border border-pink-100">
+                  認知プロセス 🧠
+                </span>
+                <span class="text-xs text-slate-400 font-bold">所要時間: 約3分</span>
               </div>
-              
-              <div class="space-y-2.5 pt-2 border-t border-slate-100">
-                <!-- 実験参加ボタン -->
-                <a href="stroop.html" class="block w-full text-center bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:opacity-90 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md">
-                  実験1に参加する 🎮
-                </a>
+              <h3 class="text-lg font-bold text-slate-800 mb-2">
+                実験1：ストループ課題
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                「文字の意味」と「文字の色」が一致しないときに生じる脳の干渉現象を調べる、簡単なキーボード操作テストです。
+              </p>
+            </div>
+            
+            <div class="space-y-2 pt-2 border-t border-slate-100">
+              <a href="stroop.html" class="block w-full text-center bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-pink-500/20">
+                実験1に参加する 🎮
+              </a>
 
-                <!-- プレゼン資料を見る -->
-                <a href="my_presentation.html" class="block w-full text-center bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-bold py-2 px-4 rounded-xl transition duration-200 text-xs border border-indigo-300 shadow-sm">
-                  📊 プレゼン資料を見る
-                </a>
+              <a href="my_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-indigo-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-indigo-200 shadow-sm">
+                📊 プレゼン資料を見る
+              </a>
 
-                <!-- 実験レポートを見る -->
-                <a href="stroopreport.html" class="block w-full text-center bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold py-2 px-4 rounded-xl transition duration-200 text-xs border border-purple-300 shadow-sm">
-                  📝 実験レポートを見る (Quarto)
-                </a>
-              </div>
+              <a href="stroopreport.html" class="block w-full text-center bg-white hover:bg-slate-50 text-purple-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-purple-200 shadow-sm">
+                📝 実験レポートを見る (Quarto)
+              </a>
             </div>
           </article>
 
-          <!-- 実験2: ミュラー・リヤー錯視（【修正】実験1と同じボタン構成を追加！） -->
-          <article class="hover-rainbow-shadow rounded-3xl">
-            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-md flex flex-col justify-between h-full relative z-10">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-cyan-50 text-cyan-700 border border-cyan-200">
-                    視覚・知覚 👁️
-                  </span>
-                  <span class="text-xs text-slate-400 font-bold">所要時間: 約2分</span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-2">
-                  実験2：ミュラー・リヤー錯視
-                </h3>
-                <p class="text-sm text-slate-600 leading-relaxed mb-6">
-                  矢印の向きによって線の長さが違って見える不思議な目の錯覚現象を、スライダー操作で楽しく測定します。
-                </p>
+          <!-- 実験2: ミュラー・リヤー錯視（ボタン拡張版） -->
+          <article class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-rainbow-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-cyan-50 text-cyan-600 border border-cyan-100">
+                  視覚・知覚 👁️
+                </span>
+                <span class="text-xs text-slate-400 font-bold">所要時間: 約2分</span>
               </div>
-              
-              <div class="space-y-2.5 pt-2 border-t border-slate-100">
-                <!-- 実験参加ボタン -->
-                <a href="muller_lyer_final.html" class="block w-full text-center bg-gradient-to-r from-cyan-500 to-blue-600 hover:opacity-90 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md">
-                  実験2に参加する 📐
-                </a>
-                
-                <!-- プレゼン資料を見る (ファイル名が必要に応じて変更可能) -->
-                <a href="muller_lyer_presentation.html" class="block w-full text-center bg-sky-50 hover:bg-sky-100 text-sky-900 font-bold py-2 px-4 rounded-xl transition duration-200 text-xs border border-sky-300 shadow-sm">
-                  📊 プレゼン資料を見る
-                </a>
+              <h3 class="text-lg font-bold text-slate-800 mb-2">
+                実験2：ミュラー・リヤー錯視
+              </h3>
+              <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                矢印の向きによって線の長さが違って見える不思議な目の錯覚現象を、スライダー操作で楽しく測定します。
+              </p>
+            </div>
+            
+            <div class="space-y-2 pt-2 border-t border-slate-100">
+              <!-- 実験参加ボタン -->
+              <a href="muller_lyer_final.html" class="block w-full text-center bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 text-sm shadow-md shadow-sky-500/20">
+                実験2に参加する 📐
+              </a>
 
-                <!-- 実験レポートを見る (ファイル名が必要に応じて変更可能) -->
-                <a href="muller_lyer_report.html" class="block w-full text-center bg-cyan-50 hover:bg-cyan-100 text-cyan-900 font-bold py-2 px-4 rounded-xl transition duration-200 text-xs border border-cyan-300 shadow-sm">
-                  📝 実験レポートを見る (Quarto)
-                </a>
+              <!-- プレゼン資料ボタン (追加) -->
+              <a href="muller_lyer_presentation.html" class="block w-full text-center bg-white hover:bg-slate-50 text-sky-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-sky-200 shadow-sm">
+                📊 プレゼン資料を見る
+              </a>
 
-                <!-- プレレジを確認する -->
-                <a href="https://github.com/r-endo815/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 w-full text-center bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-2 px-4 rounded-xl transition duration-200 text-xs border border-slate-300 shadow-sm">
-                  <span>📄 プレレジを確認する</span>
-                  <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                  </svg>
-                </a>
+              <!-- 実験レポートボタン (追加) -->
+              <a href="muller_lyer_report.html" class="block w-full text-center bg-white hover:bg-slate-50 text-cyan-600 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-cyan-200 shadow-sm">
+                📝 実験レポートを見る (Quarto)
+              </a>
 
-                <!-- タイムスタンプ証明 -->
-                <a href="https://github.com/r-endo815/my-experiment/commits/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 w-full text-center text-slate-500 hover:text-slate-800 transition duration-200 text-[11px] font-semibold py-1">
-                  <span>🕒 変更履歴（タイムスタンプ証明）</span>
-                  <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </a>
-              </div>
+              <!-- プレレジ確認ボタン -->
+              <a href="https://github.com/r-endo815/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 w-full text-center bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-800 font-semibold py-1.5 px-4 rounded-xl transition duration-200 text-xs border border-slate-200 shadow-sm">
+                <span>📄 プレレジを確認する</span>
+                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </a>
+
+              <!-- 変更履歴ボタン -->
+              <a href="https://github.com/r-endo815/my-experiment/commits/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 w-full text-center text-slate-400 hover:text-slate-600 transition duration-200 text-[11px] font-medium py-1">
+                <span>🕒 変更履歴（タイムスタンプ証明）</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </a>
             </div>
           </article>
 
         </div>
       </section>
 
-      <!-- 注意事項 -->
+      <!-- フッター -->
       <footer class="mt-16 text-center text-slate-400 text-xs space-y-2">
         <p>✨ 画面をタップすると何かが起こるよ！ ✨</p>
         <p>※ 実験データは研究目的の統計処理のみに使用され、個人が特定されることはありません。</p>
