@@ -238,7 +238,7 @@
                 実験2に参加する 📐
               </a>
 
-             <!-- プレゼン資料ボタン -->
+            <!-- プレゼン資料ボタン -->
 <a href="my_exp_report%20(1).html" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-white hover:bg-slate-50 text-cyan-600 border border-slate-200 rounded-lg py-2 text-sm font-medium transition-colors">
   📊 プレゼン資料を見る
 </a>
@@ -278,33 +278,6 @@
 
     </div>
   </main>
-
-  <script>
-    // --- プレゼンテーション表示スクリプト ---
-    function openPresentation() {
-      // 提供されたスクリプト・HTMLを含むプレゼン画面データ
-      const presentationHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>実験2 プレゼンテーション資料</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-    .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h2>📊 実験2 プレゼンテーション資料</h2>
-    <p>ライブラリ（Clipboard.js / Tabby / Popper.js / Tippy.js）が正常に読み込まれました。</p>
-  </div>
-</body>
-</html>`;
-
-      const blob = new Blob([presentationHtml], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
-    }
 
     // --- パーティクル描画スクリプト ---
     const canvas = document.getElementById('particle-canvas');
